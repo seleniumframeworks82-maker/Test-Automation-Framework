@@ -1,6 +1,7 @@
 package com.ui.utility;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,9 +19,13 @@ import com.ui.pojo.User;
 
 public class ExcelReaderUtility {
 
-	public static Iterator<User> readExcelFile(String fileName) {
+	public static Iterator<User> readExcelFile(String fileName)  {
 
-		File xlsxFile = new File(System.getProperty("user.dir") + "//testData//"+fileName);
+		File xlsxFile = new File(System.getProperty("user.dir") + "/testData/"+fileName);
+		if (!xlsxFile.exists()) {
+		    throw new RuntimeException("Excel file not found at: " + xlsxFile.getAbsolutePath());
+		}
+
 		XSSFWorkbook xssfWorkbook;
 		List<User> userList = new ArrayList<User>();
 		Row row;
